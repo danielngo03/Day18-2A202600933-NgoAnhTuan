@@ -63,7 +63,9 @@ def main():
         ground_truths.append(item["ground_truth"])
         print(f"  [{i+1}/{len(test_set)}] {item['question'][:50]}...", flush=True)
 
-    results = evaluate_ragas(questions, answers, all_contexts, ground_truths)
+    results = evaluate_ragas(
+        questions, answers, all_contexts, ground_truths, use_live=True
+    )
     print("\nBASIC BASELINE SCORES")
     for m in ["faithfulness", "answer_relevancy", "context_precision", "context_recall"]:
         print(f"  {m}: {results.get(m, 0):.4f}")

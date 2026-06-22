@@ -1,0 +1,121 @@
+{
+  "aggregate": {
+    "faithfulness": 0.8881,
+    "answer_relevancy": 0.5402,
+    "context_precision": 0.9417,
+    "context_recall": 0.95
+  },
+  "num_questions": 20,
+  "failures": [
+    {
+      "question": "Nếu cần mua một chiếc laptop 30 triệu cho nhân viên mới, ai phê duyệt và cần gì từ phòng CNTT?",
+      "expected": "Laptop 30 triệu nằm trong khoảng 5-50 triệu nên cần Giám đốc phòng ban (Director) phê duyệt. Ngoài ra, mua sắm thiết bị CNTT cần có xác nhận cấu hình kỹ thuật từ phòng CNTT trước khi đề xuất. Cần đính kèm ít nhất 3 báo giá vì trên 10 triệu.",
+      "got": "Đối với việc mua một chiếc laptop 30 triệu, Giám đốc phòng ban sẽ là người phê duyệt. Trước khi đề xuất, cần có xác nhận của phòng CNTT về cấu hình kỹ thuật của laptop.",
+      "worst_metric": "context_precision",
+      "score": 0.3333,
+      "avg_score": 0.5919,
+      "diagnosis": "Retrieved set contains too many irrelevant chunks",
+      "suggested_fix": "Add stronger reranking, metadata filters, or stricter hybrid top-k selection",
+      "error_tree": "Output đúng? Không → Context đúng? Có → Query/Rerank OK? Không → Fix ưu tiên: context_precision"
+    },
+    {
+      "question": "Một nhân viên Senior có 9 năm thâm niên được nghỉ bao nhiêu ngày phép năm và lương trong khoảng nào?",
+      "expected": "Theo chính sách v2024: 15 ngày cơ bản + 3 ngày thâm niên (9÷3=3) = 18 ngày phép. Lương Senior (P3-P4): 20-35 triệu VNĐ/tháng.",
+      "got": "Nhân viên Senior có 9 năm thâm niên sẽ được nghỉ **18 ngày phép năm** (15 ngày cơ bản + 3 ngày cộng thêm cho 9 năm thâm niên). Trong thời gian nghỉ phép năm, nhân viên vẫn được hưởng **lương**.",
+      "worst_metric": "context_recall",
+      "score": 0.5,
+      "avg_score": 0.6867,
+      "diagnosis": "Missing relevant chunks before generation",
+      "suggested_fix": "Improve chunking, add query expansion, or increase BM25/dense candidate limits",
+      "error_tree": "Output đúng? Không → Context đúng? Không → Query/Rerank OK? Có → Fix ưu tiên: context_recall"
+    },
+    {
+      "question": "Nhân viên tạm ứng 15 triệu, sau 20 ngày mới thanh toán. Bị phạt bao nhiêu?",
+      "expected": "Thời hạn thanh toán là 15 ngày. Quá hạn 5 ngày, bị tính phí 2%/tháng trên 15.000.000 VNĐ = 300.000 VNĐ/tháng (tính pro-rata khoảng 50.000 VNĐ cho 5 ngày).",
+      "got": "Nhân viên tạm ứng 15 triệu VNĐ và thanh toán sau 20 ngày, tức là quá hạn 5 ngày. Phí phạt là 2%/tháng trên số tiền chưa hoàn ứng, tính cho 1 tháng (do 20 ngày tương đương với hơn 15 ngày). Phí phạt là: 15.000.000 VNĐ * 2% = 300.000 VNĐ. Nhân viên sẽ bị phạt 300.000 VNĐ.",
+      "worst_metric": "answer_relevancy",
+      "score": 0.4049,
+      "avg_score": 0.7084,
+      "diagnosis": "Answer does not directly address the user question",
+      "suggested_fix": "Improve prompt template and add question-aware answer validation",
+      "error_tree": "Output đúng? Không → Context đúng? Có → Query/Rerank OK? Có → Fix ưu tiên: answer_relevancy"
+    },
+    {
+      "question": "Nhân viên thử việc có được hưởng bảo hiểm sức khỏe PVI không?",
+      "expected": "KHÔNG. Nhân viên thử việc chưa được hưởng gói bảo hiểm sức khỏe PVI. Chỉ được tham gia bảo hiểm xã hội bắt buộc.",
+      "got": "Nhân viên thử việc **không được hưởng gói bảo hiểm sức khỏe PVI**. Họ chỉ được tham gia bảo hiểm xã hội bắt buộc trong thời gian thử việc.",
+      "worst_metric": "answer_relevancy",
+      "score": 0.4475,
+      "avg_score": 0.7369,
+      "diagnosis": "Answer does not directly address the user question",
+      "suggested_fix": "Improve prompt template and add question-aware answer validation",
+      "error_tree": "Output đúng? Không → Context đúng? Có → Query/Rerank OK? Có → Fix ưu tiên: answer_relevancy"
+    },
+    {
+      "question": "Nhân viên thử việc có được nghỉ phép năm không?",
+      "expected": "KHÔNG. Nhân viên thử việc KHÔNG được nghỉ phép năm. Nếu cần nghỉ, phải xin nghỉ không lương và được trưởng phòng phê duyệt.",
+      "got": "Nhân viên thử việc **KHÔNG được nghỉ phép năm**. Trong trường hợp cần nghỉ việc riêng, họ phải xin nghỉ không lương và được trưởng phòng phê duyệt.",
+      "worst_metric": "answer_relevancy",
+      "score": 0.4606,
+      "avg_score": 0.7401,
+      "diagnosis": "Answer does not directly address the user question",
+      "suggested_fix": "Improve prompt template and add question-aware answer validation",
+      "error_tree": "Output đúng? Không → Context đúng? Có → Query/Rerank OK? Không → Fix ưu tiên: answer_relevancy"
+    },
+    {
+      "question": "Bao lâu phải đổi mật khẩu một lần?",
+      "expected": "Theo chính sách hiện hành (v2.0), mật khẩu phải được thay đổi mỗi 120 ngày. Chính sách cũ yêu cầu 90 ngày nhưng đã bị thay thế.",
+      "got": "Mật khẩu phải được thay đổi mỗi 120 ngày theo Chính sách mật khẩu phiên bản 2.0, có hiệu lực từ ngày 01/07/2024.",
+      "worst_metric": "answer_relevancy",
+      "score": 0.4858,
+      "avg_score": 0.7465,
+      "diagnosis": "Answer does not directly address the user question",
+      "suggested_fix": "Improve prompt template and add question-aware answer validation",
+      "error_tree": "Output đúng? Không → Context đúng? Không → Query/Rerank OK? Có → Fix ưu tiên: answer_relevancy"
+    },
+    {
+      "question": "Nhân viên được tài trợ khóa học 25 triệu, nghỉ việc sau 8 tháng hoàn thành khóa học. Phải hoàn trả bao nhiêu?",
+      "expected": "Nhân viên phải cam kết làm việc ít nhất 1 năm sau khi hoàn thành khóa học. Nghỉ sau 8 tháng là trước hạn cam kết, phải hoàn trả 100% chi phí tức 25.000.000 VNĐ.",
+      "got": "Nhân viên phải hoàn trả **100% chi phí** đào tạo đã được tài trợ, tức là **25 triệu VNĐ**, vì nhân viên nghỉ việc trước thời hạn cam kết 1 năm.",
+      "worst_metric": "answer_relevancy",
+      "score": 0.4018,
+      "avg_score": 0.7671,
+      "diagnosis": "Answer does not directly address the user question",
+      "suggested_fix": "Improve prompt template and add question-aware answer validation",
+      "error_tree": "Output đúng? Không → Context đúng? Có → Query/Rerank OK? Có → Fix ưu tiên: answer_relevancy"
+    },
+    {
+      "question": "Phụ cấp ăn trưa hàng tháng là bao nhiêu?",
+      "expected": "Phụ cấp ăn trưa là 1.000.000 VNĐ/tháng, chi trả cùng kỳ lương.",
+      "got": "Phụ cấp ăn trưa hàng tháng là **1.000.000 VNĐ/tháng**, chi trả cùng kỳ lương. Phụ cấp này không áp dụng cho những ngày nghỉ phép, nghỉ ốm hoặc công tác ngoài.",
+      "worst_metric": "answer_relevancy",
+      "score": 0.3657,
+      "avg_score": 0.8414,
+      "diagnosis": "Answer does not directly address the user question",
+      "suggested_fix": "Improve prompt template and add question-aware answer validation",
+      "error_tree": "Output đúng? Không → Context đúng? Có → Query/Rerank OK? Có → Fix ưu tiên: answer_relevancy"
+    },
+    {
+      "question": "Nhân viên được nghỉ bao nhiêu ngày phép năm?",
+      "expected": "Theo chính sách hiện hành (v2024), nhân viên được nghỉ 15 ngày phép năm có lương. Chính sách cũ (v2023) là 12 ngày nhưng đã bị thay thế.",
+      "got": "Nhân viên chính thức được hưởng 15 ngày phép năm có lương, tăng từ 12 ngày so với chính sách năm 2023.",
+      "worst_metric": "answer_relevancy",
+      "score": 0.4185,
+      "avg_score": 0.8546,
+      "diagnosis": "Answer does not directly address the user question",
+      "suggested_fix": "Improve prompt template and add question-aware answer validation",
+      "error_tree": "Output đúng? Không → Context đúng? Có → Query/Rerank OK? Có → Fix ưu tiên: answer_relevancy"
+    },
+    {
+      "question": "Nghỉ phép không lương 20 ngày cần ai phê duyệt?",
+      "expected": "Nghỉ 16-30 ngày cần phê duyệt của Giám đốc điều hành (CEO). Lưu ý: nghỉ trên 14 ngày không lương, nhân viên phải tự đóng phần bảo hiểm của mình.",
+      "got": "Nghỉ phép không lương 20 ngày cần phê duyệt của Giám đốc điều hành (CEO).",
+      "worst_metric": "answer_relevancy",
+      "score": 0.4493,
+      "avg_score": 0.8623,
+      "diagnosis": "Answer does not directly address the user question",
+      "suggested_fix": "Improve prompt template and add question-aware answer validation",
+      "error_tree": "Output đúng? Không → Context đúng? Có → Query/Rerank OK? Có → Fix ưu tiên: answer_relevancy"
+    }
+  ]
+}

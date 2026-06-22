@@ -1,4 +1,7 @@
 .env
+.venv/
+.venv314/
+.cache/
 .DS_Store
 __pycache__/
 *.pyc
@@ -6,3 +9,7 @@ __pycache__/
 qdrant_data/
 *.egg-info/
 reports/*.json
+!reports/ragas_report.json
+!reports/naive_baseline_report.json
+!reports/latency_breakdown.json
+/naive_baseline_report.json

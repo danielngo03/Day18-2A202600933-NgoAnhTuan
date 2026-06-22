@@ -1,0 +1,14 @@
+{
+  "chunking_seconds": 0.108,
+  "enrichment_seconds": 0.003,
+  "indexing_seconds": 4.151,
+  "reranker_load_seconds": 0.0,
+  "query_search_ms_avg": 567.247,
+  "query_search_ms_p95": 1425.671,
+  "query_rerank_ms_avg": 2.171,
+  "query_rerank_ms_p95": 4.686,
+  "query_generation_ms_avg": 1540.7,
+  "query_generation_ms_p95": 2246.922,
+  "query_total_ms_avg": 2110.296,
+  "query_total_ms_p95": 3202.747
+}
